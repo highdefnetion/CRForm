@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import "./App.css";
-import CRForm from "./components/CRForm";
-import ConsultationService from "./components/ConsultationService";
+import './App.css';
+import CRForm from './components/CRForm';
+import ConsultationService from './components/ConsultationService';
 import Home from './components/Home';
-
-
+import { MsalProvider } from './MsalProvider';
 
 function App() {
-    return (
+  return (
+    <MsalProvider>
       <Router>
         <div>
           <Switch>
@@ -18,7 +18,8 @@ function App() {
           </Switch>
         </div>
       </Router>
-    );
-  }
+    </MsalProvider>
+  );
+}
 
 export default App;

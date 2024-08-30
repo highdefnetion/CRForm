@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import App from './App';
-import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App'; // Adjust the path if App.js is in the src directory or a subdirectory
+import MsalProvider from './MsalProvider'; // Import the MsalProvider
+import './App.css'; // Ensure App.css is in the src directory
 
 ReactDOM.render(
-    <BrowserRouter>
+  <React.StrictMode>
+    <MsalProvider>
+      <Router>
         <App />
-    </BrowserRouter>,
-    document.getElementById('root')
+      </Router>
+    </MsalProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
-
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-

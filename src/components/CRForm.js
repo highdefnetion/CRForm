@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Service from './Service';
 import PositionInfo from './PositionInfo';
 import AboutTheJob from './AboutTheJob';
-import SupportingDocuments from './SupportingDocuments';
 import HRContact from './HRContact';
+import SupportingDocuments from './SupportingDocuments';
 import Authorization from './Authorization';
-import './CRForm.js';
+import '..App.css';
 
-function CRForm() {
+function Form() {
     const [page, setPage] = useState(0);
     const [formData, setFormData] = useState({
         position_number: "",
@@ -41,22 +41,22 @@ function CRForm() {
         date_of_submission: "",
     });
 
-    const FormTitles = ["Service", "Position Information", "About the Job", "Supporting Document", "HR Contact", "Authorization"];
+    const FormTitles = ["Service", "Position Information", "About the Job", "HR Contact", "Authorization", "Supporting Document"];
 
     const PageDisplay = () => {
-        switch(page) {
+        switch (page) {
             case 0:
                 return <Service formData={formData} setFormData={setFormData} />;
             case 1:
-                return <PositionInfo formData={formData} setFormData={setFormData} />;
+                return <Authorization formData={formData} setFormData={setFormData} />;    
             case 2:
-                return <AboutTheJob formData={formData} setFormData={setFormData} />;
+                return <PositionInfo formData={formData} setFormData={setFormData} />;
             case 3:
-                return <SupportingDocuments formData={formData} setFormData={setFormData} />;
+                return <AboutTheJob formData={formData} setFormData={setFormData} />;
             case 4:
-                return <HRContact formData={formData} setFormData={setFormData} />;
+                return <SupportingDocuments formData={formData} setFormData={setFormData} />;
             case 5:
-                return <Authorization formData={formData} setFormData={setFormData} />;
+                return <HRContact formData={formData} setFormData={setFormData} />;
             default:
                 return null;
         }
@@ -79,7 +79,7 @@ function CRForm() {
                 </div>
                 <div className="header-text">
                     <h1>Treasury Board Secretariat</h1>
-                    <h2>Classification Services Request Form</h2>
+                    <h2>Job Evaluation Initiatives Branch</h2>
                 </div>
             </div>
             <div className="instructions-section">
@@ -95,38 +95,29 @@ function CRForm() {
             </div>
             <div className='form-container'>
                 <div className='body'>{PageDisplay()}</div>
+                <div className="button-container">
+                    <button
+                        className="previous-button"
+                        disabled={page === 0}
+                        onClick={() => setPage((currPage) => currPage - 1)}
+                    >
+                        Previous
+                    </button>
+                    <button
+                        className="next-button"
+                        onClick={() => setPage((currPage) => currPage + 1)}
+                    >
+                        {SubmitButtonDisplay()}
+                    </button>
+                </div>
                 <div className='progressbar'>
                     <div className="progress" style={{ width: getProgressBarWidth() }}>
                         <span className="progress-text">{Math.round((page + 1) / FormTitles.length * 100)}%</span>
                     </div>
                 </div>
-                {page === 0 ? (
-                    <div className="button-container">
-                        <button>
-                            Consultation Service: I would like to consult a JE Specialist
-                        </button>
-                        <button onClick={() => setPage((currPage) => currPage + 1)}>
-                            Submit a Classification Request
-                        </button>
-                    </div>
-                ) : (
-                    <div className='navigation-buttons'>
-                        <button
-                            className="previous-button"
-                            disabled={page === 0}
-                            onClick={() => { setPage((currPage) => currPage - 1) }}>
-                            Previous
-                        </button>
-                        <button
-                            className="next-button"
-                            onClick={() => { setPage((currPage) => currPage + 1) }}>
-                            {SubmitButtonDisplay()}
-                        </button>
-                    </div>
-                )}
             </div>
         </div>
     );
 }
 
-export default CRForm;
+export default Form;
